@@ -1,0 +1,166 @@
+#Desarrolle una aplicación en Python utilizando Visual Studio que permita resolver el siguiente caso:
+#Una biblioteca pública necesita desarrollar un sistema que permita gestionar el préstamo de libros. Para el
+#funcionamiento del sistema se requiere las siguientes funcionalidades:
+#1. Registrar préstamo
+#2. Listar todos los préstamos
+#3. Imprimir recibo de préstamo
+#4. Salir del programa
+
+print("----------------------------------------------")
+prestamos = []
+print("----------------------------------------------")
+
+#se le solicita al usuario sus datos y la id 
+def ob_datos_usuario():
+    nombre = input("solicita el nombre del usuario: ")
+    apellido = input("solicita el apellido del usuario: ")
+    id_libro = input("solicita la identificacion del libro: ")
+    fecha_prestamo = input("solicita la fecha de prestamo (xx/xx/xxxx): ")
+    fecha_devolucion = input("solicita la fecha de devolucion (xx/xx/xxxx): ")
+    return nombre, apellido, id_libro, fecha_prestamo, fecha_devolucion
+
+def crear_prestamo(datos_usuario):
+    for valor in datos_usuario:
+        if valor == "":
+            print("invalido")
+            return []
+    prestamo = {
+        "nombre": datos_usuario[0],
+        "apellido": datos_usuario[1],
+        "id_libro": datos_usuario[2],
+        "fecha_prestamo": datos_usuario[3],
+        "fecha_devolucion": datos_usuario[4]
+    }
+    return prestamo
+#1. Registrar préstamo
+#Para registrar un préstamo se requiere lo siguiente: nombre y apellido del usuario, identificación del libro (ID),
+#fecha de préstamo y fecha de devolución. Por ejemplo, un registro de préstamo podría verse de la siguiente
+#manera:
+
+def registrar_prestamo():
+    datos_usuario = ob_datos_usuario()
+    prestamo = crear_prestamo(datos_usuario)
+    if prestamo:
+        prestamos.append(prestamo)
+        print("Prestamo registrado ")
+
+#2. Listar Préstamos
+#Debe mostrar en la pantalla la lista de todos los préstamos realizados, similar al ejemplo anterior de registro de
+#préstamos.
+
+def listar_prestamos(prestamos):
+    if len(prestamos) == 0:
+        print("No hay préstamos registrados")
+        return
+    
+    for prestamo in prestamos:
+        print("----------------------------------------------")
+        print(f"Número de prestamo: {prestamo['numero']}")
+        print(f"Nombre: {prestamo['nombre']} {prestamo['apellido']}")
+        print(f"ID Libro: {prestamo['id_libro']}")
+        print(f"Fecha de prestamo: {prestamo['fecha_prestamo']}")
+        print(f"Fecha de devolucion: {prestamo['fecha_devolucion']}")
+        print("----------------------------------------------")
+
+#. Imprimir recibo de préstamo
+#Para imprimir el recibo de préstamo, el usuario debe seleccionar uno de los préstamos registrados. Se generará
+#un archivo de texto (.txt) con el detalle del préstamo que debe incluir la misma información del registro completo
+#de las opciones anteriores
+
+def recibo_prestamo():
+    if len(prestamos) == 0:
+        print("No hay registros.")
+        return
+    
+    ultimo_pedido = prestamos[-1]
+    num_archivo = len(prestamos)
+    nombre_archivo = f"recibo_prestamo_{num_archivo}.txt"
+
+#tomando los datos solicitados y crar el txt
+    with open(nombre_archivo, "w") as file:
+        file.write("----------------------------------------------\n")
+        file.write(f"Recibo de prestamo para el ultimo pedido:\n")
+        file.write("----------------------------------------------\n")
+        file.write(f"Nombre: {ultimo_pedido['nombre']} {ultimo_pedido['apellido']}\n")
+        file.write(f"ID Libro: {ultimo_pedido['id_libro']}\n")
+        file.write(f"Fecha de préstamo: {ultimo_pedido['fecha_prestamo']}\n")
+        file.write(f"Fecha de devolucion: {ultimo_pedido['fecha_devolucion']}\n")
+        file.write("----------------------------------------------\n")
+        print(f"Recibo de prestamo generado en \"{nombre_archivo}\".")
+
+def salir():
+    print("adios ")
+
+# creando un menu para solicitar restrar prestamo,listar eimprmir el recibo del prestamo
+while True:
+    print("-----------------------------------------------")
+    print("--------------- Menu --------------------------")
+    print("-----------------------------------------------")
+    print("1. Registrar prestamo--------------------------")
+    print("2. Listar todos los prestamos------------------")
+    print("3. Imprimir recibo de prestamo y crear archivo-")
+    print("4. Salir---------------------------------------")
+    print("-----------------------------------------------")
+
+    opcion = input("Seleccione una opcion: ")
+
+    if opcion == "1":
+        registrar_prestamo()
+    elif opcion == "2":
+        listar_prestamos()
+    elif opcion == "3":
+        recibo_prestamo()
+    elif opcion == "4":
+        salir()
+        break
+    else:
+        print("Opcion invalida ")
+
+#Requisitos adicionales:
+#o Utilizar funciones para cada una de las opciones del menú. (realizar un archivo de funciones y hacer el import
+#respectivo desde el archivo principal).
+#o Utilizar diccionarios y listas para gestionar los pedidos y los sectores.
+#o Implementar validaciones necesarias para asegurar que los datos ingresados son correctos.
+#o Este ejercicio debe ser resuelto en Python y se debe utilizar Visual Studio para su desarrollo.
+#o Se debe comentar el código.
+#o Debe subir su trabajo a un repositorio GitHub como respaldo e invitar a su docente como colaborador o enviar
+#imagen de la carga del proyecto. 
+#---------------------------------------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------------------------------------#
+#---------------------------------------------------------------------------------------------------------------------------#
+from prestamos import ob_datos_usuario, crear_prestamo, registrar_prestamo, listar_prestamos, recibo_prestamo, salir
+
+print("---------------------------------------------------")
+prestamos = []
+print("---------------------------------------------------")
+
+while True:
+    print("-----------------------------------------------")
+    print("--------------- Menu --------------------------")
+    print("-----------------------------------------------")
+    print("1. Registrar prestamo--------------------------")
+    print("2. Listar prestamos----------------------------")
+    print("3. Imprimir recibo de prestamo y crear archivo-")
+    print("4. Salir---------------------------------------")
+    print("-----------------------------------------------")
+
+    opcion = input("Seleccione una opcion: ")
+
+    if opcion == "1":
+        registrar_prestamo(prestamos)
+    elif opcion == "2":
+        listar_prestamos(prestamos)
+    elif opcion == "3":
+        recibo_prestamo(prestamos)
+    elif opcion == "4":
+        salir()
+        break
+    else:
+        print("Opcion invalida.")
+print("---------------------------------------------------")
+print("------------fin_del_programa-----------------------")
+print("---------------------------------------------------")
+
+
+
